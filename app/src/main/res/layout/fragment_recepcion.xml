@@ -1,10 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:text="RECEPCIÓN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="BUSCADOR DE HERRAMIENTAS"
+            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:hint="Buscador"
+            android:id="@+id/edtBuscar"
+            android:background="@drawable/bg_input"
+            android:padding="10sp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:text="Buscar"
+            android:id="@+id/btnBuscarHerramienta"
+            android:layout_marginBottom="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="RESULTADOS"
+            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:hint="Nombre"
+            android:id="@+id/edtNombreH"
+            android:background="@drawable/bg_input"
+            android:padding="14dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:hint="Marca"
+            android:id="@+id/edtMarcaH"
+            android:background="@drawable/bg_input"
+            android:padding="14dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:hint="Descripción"
+            android:id="@+id/edtDescripcionH"
+            android:background="@drawable/bg_input"
+            android:padding="14dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <!--
+            <EditText
+                android:hint="Condición"
+                android:background="@drawable/bg_input"
+                android:padding="14dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        -->
+        <RadioGroup
+            android:id="@+id/rgCondicionH"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:text="Bueno"
+                android:id="@+id/rbtBuenoH"
+                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:text="Regular"
+                android:id="@+id/rbtRegularH"
+                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:text="Malo"
+                android:id="@+id/rbtMaloH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+
+        <!--
+        <EditText
+            android:hint="Tipo"
+            android:background="@drawable/bg_input"
+            android:padding="14dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+            -->
+
+        <RadioGroup
+            android:id="@+id/rgTipoHerramientaH"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:text="Electrica"
+                android:id="@+id/rbtElectricaH"
+                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:text="Manual"
+                android:id="@+id/rbtManualH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+
+<!--
+        <Button
+            android:id="@+id/btnTestWs"
+            android:text="Test Ws"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+-->
+
+        <Button
+            android:id="@+id/btnActualizar"
+            android:text="Actualizar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</ScrollView>

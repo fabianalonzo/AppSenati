@@ -1,17 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:text="PRÉSTAMO"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/btnTestWs"
-        android:text="Test Ws"
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
 
-</LinearLayout>
+        <TextView
+            android:text="REGISTRO DE HERRAMIENTAS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:hint="Nombre"
+            android:id="@+id/edtNombre"
+            android:background="@drawable/bg_input"
+            android:padding="14dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:hint="Marca"
+            android:id="@+id/edtMarca"
+            android:background="@drawable/bg_input"
+            android:padding="14dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:hint="Descripción"
+            android:id="@+id/edtDescripcion"
+            android:background="@drawable/bg_input"
+            android:padding="14dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <!--
+            <EditText
+                android:hint="Condición"
+                android:background="@drawable/bg_input"
+                android:padding="14dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        -->
+        <RadioGroup
+            android:id="@+id/rgCondicion"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:text="Bueno"
+                android:id="@+id/rbtBueno"
+                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:text="Regular"
+                android:id="@+id/rbtRegular"                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:text="Malo"
+                android:id="@+id/rbtMalo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+
+        <!--
+        <EditText
+            android:hint="Tipo"
+            android:background="@drawable/bg_input"
+            android:padding="14dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+            -->
+
+        <RadioGroup
+            android:id="@+id/rgTipoHerramienta"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:text="Electrica"
+                android:id="@+id/rbtElectrica"
+                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:text="Manual"
+                android:id="@+id/rbtManual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+
+        <Button
+            android:text="Guardar"
+            android:id="@+id/btnGuardarHerramienta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnTestWs"
+            android:text="Test Ws"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</ScrollView>
