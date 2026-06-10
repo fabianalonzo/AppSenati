@@ -53,7 +53,16 @@ public class RecepcionFragment extends Fragment {
         //GET (listar)
         requestQueue = Volley.newRequestQueue(requireContext().getApplicationContext());
 
-        String id = edtBuscar.getText().toString();
+        if (edtBuscar.getText().toString().trim().isEmpty()) {
+            Toast.makeText(
+                    getContext(),
+                    "Ingrese un ID",
+                    Toast.LENGTH_SHORT
+            ).show();
+            return;
+        }
+
+        String id = edtBuscar.getText().toString().trim();
         String urlBuscar = URL + id;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -124,6 +133,36 @@ public class RecepcionFragment extends Fragment {
         requestQueue.add(jsonObjectRequest);
     }
 
+    private boolean readyUI() {
+
+        boolean ready = true;
+
+        if (edtNombre.getText().toString().trim().isEmpty()) {
+            ready = false;
+        }
+
+        if (edtMarca.getText().toString().trim().isEmpty()) {
+            ready = false;
+        }
+
+        if (edtDescripcion.getText().toString().trim().isEmpty()) {
+            ready = false;
+        }
+
+        if (!rbtBueno.isChecked()
+                && !rbtRegular.isChecked()
+                && !rbtMalo.isChecked()) {
+            ready = false;
+        }
+
+        if (!rbtManual.isChecked()
+                && !rbtElectrica.isChecked()) {
+            ready = false;
+        }
+
+        return ready;
+    }
+
     private void resetUI() {
         edtNombre.setText(null);
         edtMarca.setText("");
@@ -143,7 +182,16 @@ public class RecepcionFragment extends Fragment {
         //GET (listar)
         requestQueue = Volley.newRequestQueue(requireContext().getApplicationContext());
 
-        String id = edtBuscar.getText().toString();
+        if (edtBuscar.getText().toString().trim().isEmpty()) {
+            Toast.makeText(
+                    getContext(),
+                    "Ingrese un ID",
+                    Toast.LENGTH_SHORT
+            ).show();
+            return;
+        }
+
+        String id = edtBuscar.getText().toString().trim();
         String urlActualizar = URL + id;
 
               condicion = "";
@@ -159,9 +207,9 @@ public class RecepcionFragment extends Fragment {
 
           JSONObject datosEnviar = new JSONObject();
               try {
-                  datosEnviar.put("nombre", edtNombre.getText().toString()); // EditText
-                  datosEnviar.put("marca", edtMarca.getText().toString()); // EditText
-                  datosEnviar.put("descripcion", edtDescripcion.getText().toString()); // EditText
+                  datosEnviar.put("nombre", edtNombre.getText().toString().trim()); // EditText
+                  datosEnviar.put("marca", edtMarca.getText().toString().trim()); // EditText
+                  datosEnviar.put("descripcion", edtDescripcion.getText().toString().trim()); // EditText
                   datosEnviar.put("condicion", condicion);
                   datosEnviar.put("tipo", tipo);
               } catch (Exception e) {
@@ -184,14 +232,31 @@ public class RecepcionFragment extends Fragment {
                             int id = response.getInt("id");
 
                             if (success) {
+
                                 resetUI();
-                                Toast.makeText(getContext(), message + " - ID: " + id, Toast.LENGTH_LONG).show();
+
+                                if (getContext() == null) {
+                                    return;
+                                }
+
+                                Toast.makeText(
+                                        getContext(),
+                                        message + " - ID: " + id,
+                                        Toast.LENGTH_LONG
+                                ).show();
+
                                 edtNombre.requestFocus();
                             }
                         } catch (Exception e) {
                             Log.e("ErrorJSON", e.toString());
                         }
-                        Toast.makeText(getContext(), response.toString(), Toast.LENGTH_SHORT).show();
+                        if (getContext() != null) {
+                            Toast.makeText(
+                                    getContext(),
+                                    response.toString(),
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -209,13 +274,23 @@ public class RecepcionFragment extends Fragment {
 
                                 String message = jsonObject.getString("message");
 
-                                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                                if (getContext() != null) {
+                                    Toast.makeText(
+                                            getContext(),
+                                            message,
+                                            Toast.LENGTH_LONG
+                                    ).show();
+                                }
 
                             } catch (Exception e) {
 
-                                Toast.makeText(getContext(),
-                                        "Error al procesar la respuesta",
-                                        Toast.LENGTH_LONG).show();
+                                if (getContext() != null) {
+                                    Toast.makeText(
+                                            getContext(),
+                                            "Error al procesar la respuesta",
+                                            Toast.LENGTH_LONG
+                                    ).show();
+                                }
 
                                 Log.e("ErrorJSON", e.toString());
                             }
@@ -256,7 +331,16 @@ public class RecepcionFragment extends Fragment {
         btnActualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                actualizarHerramienta();
+                if (readyUI()) {
+                    actualizarHerramienta();
+                }
+                else {
+                    Toast.makeText(
+                            getContext(),
+                            "Complete el formulario",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
             }
         });
 
