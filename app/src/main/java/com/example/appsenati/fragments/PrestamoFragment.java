@@ -59,12 +59,33 @@ public class PrestamoFragment extends Fragment {
     private boolean readyUI() {
         boolean ready = true;
 
-        if ( edtNombre.getText().toString().isEmpty() ) { ready = false; };
-        if ( edtMarca.getText().toString().isEmpty() ) { ready = false; };
-        if ( edtDescripcion.getText().toString().isEmpty() ) { ready = false; };
+        // Nombre
+        if (edtNombre.getText().toString().trim().isEmpty()) { ready = false; }
+        if (edtNombre.getText().toString().trim().length() < 3) { ready = false; }
+        if (edtNombre.getText().toString().trim().length() > 50) { ready = false; }
 
-        if ( !rbtBueno.isChecked() && !rbtRegular.isChecked() && !rbtMalo.isChecked()) { ready = false; };
-        if ( !rbtManual.isChecked() && !rbtElectrica.isChecked()) { ready = false; };
+        // Marca
+        if (edtMarca.getText().toString().trim().isEmpty()) { ready = false; }
+        if (edtMarca.getText().toString().trim().length() < 2) { ready = false; }
+        if (edtMarca.getText().toString().trim().length() > 50) { ready = false; }
+
+        // Descripción
+        if (edtDescripcion.getText().toString().trim().isEmpty()) { ready = false; }
+        if (edtDescripcion.getText().toString().trim().length() < 5) { ready = false; }
+        if (edtDescripcion.getText().toString().trim().length() > 255) { ready = false; }
+
+        // Condición
+        if (!rbtBueno.isChecked()
+                && !rbtRegular.isChecked()
+                && !rbtMalo.isChecked()) {
+            ready = false;
+        }
+
+        // Tipo
+        if (!rbtManual.isChecked()
+                && !rbtElectrica.isChecked()) {
+            ready = false;
+        }
 
         return ready;
     }
@@ -101,13 +122,21 @@ public class PrestamoFragment extends Fragment {
 
         JSONObject datosEnviar = new JSONObject();
         try {
-            datosEnviar.put("nombre", edtNombre.getText().toString()); // EditText
-            datosEnviar.put("marca", edtMarca.getText().toString()); // EditText
-            datosEnviar.put("descripcion", edtDescripcion.getText().toString()); // EditText
+            datosEnviar.put("nombre", edtNombre.getText().toString().trim());
+            datosEnviar.put("marca", edtMarca.getText().toString().trim());
+            datosEnviar.put("descripcion", edtDescripcion.getText().toString().trim());
             datosEnviar.put("condicion", condicion);
             datosEnviar.put("tipo", tipo);
-        } catch (Exception e) {
+        }catch (Exception e) {
             Log.e("ErrorJSON", e.toString());
+
+            if (getContext() != null) {
+                Toast.makeText(
+                        getContext(),
+                        "Error al preparar los datos",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
         }
 
         // 1. Canal de comunicación
@@ -128,14 +157,31 @@ public class PrestamoFragment extends Fragment {
                             int id = jsonObject.getInt("id");
 
                             if (success) {
+
                                 resetUI();
-                                Toast.makeText(getContext(), message + " - ID: " + id, Toast.LENGTH_LONG).show();
+
+                                if (getContext() == null) {
+                                    return;
+                                }
+
+                                Toast.makeText(
+                                        getContext(),
+                                        message + " - ID: " + id,
+                                        Toast.LENGTH_LONG
+                                ).show();
+
                                 edtNombre.requestFocus();
                             }
                         } catch (Exception e) {
                             Log.e("ErrorJSON", e.toString());
                         }
-                        Toast.makeText(getContext(), jsonObject.toString(), Toast.LENGTH_SHORT).show();
+                        if (getContext() != null) {
+                            Toast.makeText(
+                                    getContext(),
+                                    jsonObject.toString(),
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -150,6 +196,14 @@ public class PrestamoFragment extends Fragment {
                             int statusCode = response.statusCode;
                             // MESSAGE DETAIL
                             String errorJSON = new String(response.data);
+
+                            if (getContext() != null) {
+                                Toast.makeText(
+                                        getContext(),
+                                        errorJSON,
+                                        Toast.LENGTH_LONG
+                                ).show();
+                            }
 
                             // Mostrar el message (JSON) en la pantalla TOAST
                             Log.d("ErrorStatusCode", String.valueOf(statusCode));
